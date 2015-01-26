@@ -1,0 +1,140 @@
+OpenBLAS not need
+
+
+http://uropan.net/2014/05/
+
+## CUDA ##
+$ wget http://developer.download.nvidia.com/compute/cuda/5_5/rel/installers/cuda_5.5.22_linux_64.run
+$ sudo sh cuda_5.5.22_linux_64.run --override
+$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-5.5/lib64:/lib
+$ sudo ldconfig
+$ export PATH=$PATH:/usr/local/cuda-5.5/bin
+
+## OpenBLAS iranai ##
+$ git clone http://github.com/xianyi/OpenBLAS.git
+$ cd OpenBLAS
+$ sudo apt-get install gfortran
+$ make FC=gfortran
+$ sudo make install
+
+USE OPENBLAS OR ATLAS
+ in Makefile.config set BLAS := atlas or open
+#####################
+
+## 3rd party ##
+$ sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libboost-all-dev libhdf5-serial-dev
+
+## OpenCV - Python ##
+http://uropan.net/2014/02/install-opencv2-4-8-in-ubuntu13-10/
+$ apt-get install libqt4-dev
+$ apt-get install libgtk2.0-dev
+$ apt-get install pkg-config
+$ apt-get install cmake
+$ apt-get install python-dev
+$ apt-get install python-numpy python-scipy python-matplotlib
+
+http://answers.opencv.org/question/31352/compiling-opencv-248-on-ubuntu-1310/
+$ wget -O OpenCV-2.4.9.zip http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/2.4.9/opencv-2.4.9.zip/download
+$ sudo apt-get install unzip
+$ unzip opencv2.4.9.zip
+$ cd OpenCV-2.4.9
+$ mkdir build
+$ cd build
+$ cmake -D -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=RELEASE -DWITH_GTK=ON -DWITH_FFMPEG=ON -INSTALL_PYTHON_EXAMPLES=ON ..
+$ make -j4
+$ sudo make install
+$ sudo ldconfig
+###########################
+
+http://caffe.berkeleyvision.org/installation.html
+## glog ##
+$ wget https://google-glog.googlecode.com/files/glog-0.3.3.tar.gz
+$ tar zxvf glog-0.3.3.tar.gz
+$ cd glog-0.3.3.tar.gz
+$ ./configure
+$ make
+$ sudo make install
+
+## gflags ##
+wget https://github.com/schuhschuh/gflags/archive/master.zip
+unzip master.zip
+cd gflags-master
+mkdir build && cd build
+export CXXFLAGS="-fPIC" && cmake .. && make VERBOSE=1
+sudo make
+sudo make install
+
+## lmdb ##
+git clone git://gitorious.org/mdb/mdb.git
+cd mdb/libraries/liblmdb
+sudo make
+sudo make install
+
+## protobuf ##
+https://code.google.com/p/protobuf/downloads/detail?name=protobuf-2.5.0.tar.gz&can=2&q=
+
+http://www.confusedcoders.com/random/how-to-install-protocol-buffer-2-5-0-on-ubuntu-13-04
+$ sudo ./configure
+$ sudo make
+$ sudo make check
+$ sudo make install
+$ protoc --version
+$ sudo ldcofnig
+$ protoc --version
+
+## Caffe ##
+$ git clone https://github.com/BVLC/caffe.git
+$ cd caffe
+$ cp Makefile.config.example Makefile.config
+
+$ sudo apt-get install vim
+$ vim Makefile.config
+    uncomment USE_CUDNN or CPU_ONLY
+  http://www.nal.ics.es.osaka-u.ac.jp/personal/k-yamanishi/CaffeUbuntu.html
+    3.2 Makefile.config ÇÃê›íË
+      $ sudo apt-get install g++-4.6
+      $ vim Makefile.config
+        uncomment # CUSTOM_CXX := g++
+        change to CUSTOM_CXX := g++-4.6
+        comment out CUDA_DIR := /usr/local/cuda
+        uncomment # CUDA_DIR := /usr
+      
+    3.3 make
+      make all
+      make test
+      make runtest
+
+      make pycaffe
+      make distribute
+
+Caffe Tutorial
+http://techblog.yahoo.co.jp/programming/caffe-intro/
+
+https://github.com/sguada/caffe-public/blob/master/models/get_caffe_reference_imagenet_model.sh
+$ sudo ./get_caffe_reference_imagenet_model.sh
+
+## pip ##
+http://tdoc.info/blog/2014/01/15/pip.html
+$ sudo apt-get install python-pip
+
+## scikit-image ##
+https://github.com/BVLC/caffe/issues/50
+$ sudo pip install scikit-image
+
+## python-protobuf ##
+http://stackoverflow.com/questions/10969149/compilation-needed-for-installing-google-protobuf
+$ sudo apt-get install python-protobuf
+
+## download - caffemodel ##
+http://wiki.ruka-f.net/index.php?Caffe
+$ cd models/bvlc_reference_caffenet
+$ wget http://dl.caffe.berkeleyvision.org/bvlc_reference_caffenet.caffemodel
+
+# classify.py ##
+$ cd python; python classify.py --raw_scale 255 ../101_ObjectCategories/airplanes/image_0001.jpg ../result.npy; cd ..
+
+$ mkdir caffe_script
+$ cd caffe_script
+create show_result.py
+$ cd ..
+$ python caffe_script/show_result.py data/ilsvrc12/synset_words.txt result.npy
